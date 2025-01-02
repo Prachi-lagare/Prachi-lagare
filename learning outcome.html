@@ -135,6 +135,313 @@ int main() {
     return 0;
 }</code></pre>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Principles and Algorithms</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h2 {
+            color: #2c3e50;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+            overflow-x: auto;
+        }
+        code {
+            color: #c7254e;
+            background-color: #f9f2f4;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        ul {
+            margin: 10px 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Design Principles and Algorithms</h1>
+
+    <h2>3. Design Principles</h2>
+    <h3>Modularity</h3>
+    <p>Modular design divides a program into smaller, independent components, which enhances code reusability and maintainability.</p>
+    <pre><code>class Database {
+    def connect(self):
+        pass
+
+    def execute_query(self, query):
+        pass
+}</code></pre>
+
+    <h3>Scalability</h3>
+    <p>Scalability ensures the system can grow to handle increased loads, either through vertical or horizontal scaling.</p>
+
+    <h3>Efficiency</h3>
+    <p>Efficiency aims to optimize the use of time and space, such as by choosing data structures like hash maps (O(1) time) for faster operations.</p>
+
+    <h2>4. Hierarchical Data Structures</h2>
+    <h3>Tree Types</h3>
+    <ul>
+        <li><strong>Binary Search Tree (BST):</strong> Efficient for searching, insertion, and deletion.</li>
+        <li><strong>AVL Trees:</strong> Self-balancing BSTs that ensure O(log n) complexity for operations.</li>
+        <li><strong>Trie:</strong> Used in applications like autocomplete for storing strings based on prefixes.</li>
+    </ul>
+
+    <h3>Use Cases</h3>
+    <ul>
+        <li><strong>Databases:</strong> B-trees for efficient indexing and searching.</li>
+        <li><strong>Memory Management:</strong> Heaps for managing memory allocation and priority queues.</li>
+    </ul>
+
+    <h2>5. Array Query Algorithms</h2>
+    <p>Arrays are widely used for storing data, and efficient algorithms help in performing range queries. Prefix sums and segment trees are common methods.</p>
+    <pre><code>void prefixSum(int arr[], int n) {
+    int prefix[n + 1]; 
+    prefix[0] = 0; 
+
+    for (int i = 1; i <= n; i++) {
+        prefix[i] = prefix[i - 1] + arr[i - 1];
+    }
+
+    for (int i = 0; i <= n; i++) {
+        cout &lt;&lt; prefix[i] &lt;&lt; " ";
+    }
+    cout &lt;&lt; endl;
+}</code></pre>
+
+    <h2>6. Trees vs. Graphs</h2>
+    <h3>Traversal Techniques</h3>
+    <ul>
+        <li><strong>DFS:</strong> Used in trees and graphs for exploring deep into the structure.</li>
+        <li><strong>BFS:</strong> Used in graphs for exploring nodes level by level.</li>
+    </ul>
+
+    <h3>Applications</h3>
+    <ul>
+        <li><strong>Trees:</strong> Used for hierarchical structures like file systems.</li>
+        <li><strong>Graphs:</strong> Used for representing networks, like social media or transportation systems.</li>
+    </ul>
+
+    <h2>7. Sorting and Searching</h2>
+    <h3>Sorting Algorithms</h3>
+    <ul>
+        <li><strong>Bubble Sort:</strong></li>
+    </ul>
+    <pre><code>ALGORITHM BubbleSort(A[0..n-1])
+for i <- 0 to n - 2 do
+    for j <- 0 to n - 2 - i do
+        if A[j+1] < A[j]
+            swap A[j] and A[j+1]</code></pre>
+
+    <ul>
+        <li><strong>Merge Sort:</strong> Efficient divide-and-conquer sorting algorithm with O(n log n) time complexity.</li>
+    </ul>
+    <pre><code>ALGORITHM MergeSort(A[0..n-1])
+if n > 1
+    copy A[0...|n/2| - 1 ] to B[0...|n/2| - 1]
+    copy A[ |n/2| ... n - 1 ] to C[0......| ̄ n/2  ̄| - 1]
+    MergeSort(B[0...|n/2| - 1] )
+    MergeSort(C[0......| ̄ n/2  ̄| - 1] )
+    Merge(B,C,A)</code></pre>
+
+    <h3>Quick Sort</h3>
+    <pre><code>#include <iostream>
+#include <vector>
+using namespace std;
+
+int partition(vector&amp; A, int l, int r) {
+    int p = A[l];
+    int i = l;
+    int j = r + 1;
+    while (true) {
+        do {
+            i++;
+        } while (i <= r &amp;&amp; A[i] < p);
+
+        do {
+            j--;
+        } while (A[j] > p);
+
+        if (i >= j) break;
+        swap(A[i], A[j]);
+    }
+    swap(A[l], A[j]);
+    return j;
+}
+
+void quickSort(vector&amp; A, int l, int r) {
+    if (l < r) {
+        int s = partition(A, l, r);
+        quickSort(A, l, s - 1);
+        quickSort(A, s + 1, r);
+    }
+}
+
+int main() {
+    vector A = {10, 7, 8, 9, 1, 5};
+    quickSort(A, 0, A.size() - 1);
+    for (int x : A) cout &lt;&lt; x &lt;&lt; " ";
+    return 0;
+}</code></pre>
+
+    <h3>Searching</h3>
+    <pre><code>int binarySearch(const vector&amp; arr, int key) {
+    int left = 0, right = arr.size() - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == key) return mid;
+        if (arr[mid] < key) left = mid + 1;
+        else right = mid - 1;
+    }
+    return -1;
+}</code></pre>
+
+    <h2>8. Graph Algorithms</h2>
+    <h3>Spanning Trees</h3>
+    <ul>
+        <li><strong>Kruskal’s Algorithm:</strong></li>
+    </ul>
+    <pre><code>int Find(int parent[], int i) {
+    if (parent[i] != i)
+        parent[i] = Find(parent, parent[i]);
+    return parent[i];
+}
+
+void Union(int parent[], int rank[], int x, int y) {
+    int xroot = Find(parent, x);
+    int yroot = Find(parent, y);
+
+    if (rank[xroot] < rank[yroot])
+        parent[xroot] = yroot;
+    else if (rank[xroot] > rank[yroot])
+        parent[yroot] = xroot;
+    else {
+        parent[yroot] = xroot;
+        rank[xroot]++;
+    }
+}
+
+void KruskalMST(Edge edges[], int E, int V) {
+    int weights[E], idx[E];
+    for (int i = 0; i < E; i++) {
+        weights[i] = edges[i].weight;
+        idx[i] = i;
+    }
+
+    MergeSort(weights, idx, 0, E - 1);
+
+    int parent[V], rank[V];
+    for (int i = 0; i < V; i++) {
+        parent[i] = i;
+        rank[i] = 0;
+    }
+
+    Edge mst[V - 1];
+    int mstSize = 0;
+
+    for (int i = 0; i < E &amp;&amp; mstSize < V - 1; i++) {
+        Edge edge = edges[idx[i]];
+        int x = Find(parent, edge.sr c);
+        int y = Find(parent, edge.dest);
+
+        if (x != y) {
+            mst[mstSize++] = edge;
+            Union(parent, rank, x, y);
+        }
+    }
+
+    cout &lt;&lt; "Edges in the Minimum Spanning Tree:\n";
+    int cost = 0;
+    for (int i = 0; i < mstSize; i++) {
+        cout &lt;&lt; mst[i].src &lt;&lt; " -- " &lt;&lt; mst[i].dest &lt;&lt; " == " &lt;&lt; mst[i].weight &lt;&lt; endl;
+        cost += mst[i].weight;
+    }
+    cout &lt;&lt; "Cost = " &lt;&lt; cost &lt;&lt; endl;
+}</code></pre>
+
+    <h3>Shortest Path Algorithms</h3>
+    <p><strong>Dijkstra's Algorithm:</strong> Finds the shortest path between two points in a graph, used in GPS navigation and routing applications.</p>
+    <pre><code>#include <iostream>
+#include <vector>
+#define MAX 9999
+using namespace std;
+
+class dijkstra {
+public:
+    int dist[100];
+    int path[100];
+    int visited[100] = {0};
+    int v;
+    int src;
+
+    void read(int cost[50][50]);
+    void initialize(int cost[50][50]);
+};
+
+void dijkstra::initialize(int cost[50][50]) {
+    for (int i = 0; i < v; i++) {
+        path[i] = src;
+        dist[i] = cost[src][i];
+        visited[i] = 0;
+    }
+    visited[src] = 1;
+}
+
+void dijkstra::read(int cost[50][50]) {
+    cout &lt;&lt; "Enter the cost matrix:" &lt;&lt; endl;
+    for (int i = 0; i < v; i++) {
+        for (int j = 0; j < v; j++) {
+            cin &gt;&gt; cost[i][j];
+        }
+    }
+}
+
+int main() {
+    int cost[50][50];
+    dijkstra d;
+
+    cout &lt;&lt; "Enter the number of vertices: ";
+    cin &gt;&gt; d.v;
+
+    d.read(cost);
+
+    cout &lt;&lt; "Enter the source vertex: ";
+    cin &gt;&gt; d.src;
+
+    d.initialize(cost);
+
+    cout &lt;&lt; "Initialized distances from source: ";
+    for (int i = 0; i < d.v; i++) {
+        cout &lt;&lt; d.dist[i] &lt;&lt; " ";
+    }
+    cout &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+
+    <h2>9. Algorithm Design Techniques</h2>
+    <ul>
+        <li><strong>Divide and Conquer:</strong> Breaks problems into smaller sub-problems, solves them independently, and combines results.</li>
+        <li><strong>Greedy Algorithms:</strong> Makes the best choice at each step in the hope of finding the global optimum.</li>
+        <li><strong>Dynamic Programming:</strong> Solves problems by storing the results of overlapping subproblems to avoid redundant work.</li>
+    </ul>
+
+    <h2>Reflections</h2>
+    <p>Learning how to break down complex problems into smaller components allows for better problem-solving and optimization. Balancing optimization with simplicity ensures maintainability while delivering efficient solutions. Adapting solutions across different challenges involves choosing the right algorithm for the problem at hand.</p>
+</body>
+</html>
+
     <!-- Add similar sections for the remaining parts of the content -->
 
 </body>
