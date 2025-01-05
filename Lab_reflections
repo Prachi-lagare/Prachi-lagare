@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stack Operations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .btn {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            height: 150px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Stack Operations</h2>
+        <div>
+            <button class="btn" onclick="push()">Push</button>
+            <button class="btn" onclick="pop()">Pop</button>
+            <button class="btn" onclick="peek()">Peek</button>
+            <button class="btn" onclick="printStack()">Print</button>
+        </div>
+        <div class="output" id="output"></div>
+    </div>
+
+    <script>
+        const MAXSIZE = 5;
+        let stack = [];
+
+        function push() {
+            if (stack.length >= MAXSIZE) {
+                displayOutput("Stack Overflow!");
+            } else {
+                let val = prompt("Enter value to be pushed:");
+                if (val !== null) {
+                    stack.push(parseInt(val));
+                    displayOutput(`Pushed: ${val}`);
+                }
+            }
+        }
+
+        function pop() {
+            if (stack.length === 0) {
+                displayOutput("Stack Underflow!");
+            } else {
+                let val = stack.pop();
+                displayOutput(`Popped: ${val}`);
+            }
+        }
+
+        function peek() {
+            if (stack.length === 0) {
+                displayOutput("Stack is empty!");
+            } else {
+                displayOutput(`Peek: ${stack[stack.length - 1]}`);
+            }
+        }
+
+        function printStack() {
+            if (stack.length === 0) {
+                displayOutput("Stack is empty");
+            } else {
+                displayOutput(`Stack elements: ${stack.join(', ')}`);
+            }
+        }
+
+        function displayOutput(message) {
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML += message + '<br>';
+            outputDiv.scrollTop = outputDiv.scrollHeight;
+        }
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stack Operations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .btn {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            height: 150px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Stack Operations</h2>
+        <div>
+            <button class="btn" onclick="push()">Push</button>
+            <button class="btn" onclick="pop()">Pop</button>
+            <button class="btn" onclick="peek()">Peek</button>
+            <button class="btn" onclick="printStack()">Print</button>
+        </div>
+        <div class="output" id="output"></div>
+    </div>
+
+    <script>
+        const MAXSIZE = 5;
+        let stack = [];
+
+        function push() {
+            if (stack.length >= MAXSIZE) {
+                displayOutput("Stack Overflow!");
+            } else {
+                let val = prompt("Enter value to be pushed:");
+                if (val !== null) {
+                    stack.push(parseInt(val));
+                    displayOutput(`Pushed: ${val}`);
+                }
+            }
+        }
+
+        function pop() {
+            if (stack.length === 0) {
+                displayOutput("Stack Underflow!");
+            } else {
+                let val = stack.pop();
+                displayOutput(`Popped: ${val}`);
+            }
+        }
+
+        function peek() {
+            if (stack.length === 0) {
+                displayOutput("Stack is empty!");
+            } else {
+                displayOutput(`Peek: ${stack[stack.length - 1]}`);
+            }
+        }
+
+        function printStack() {
+            if (stack.length === 0) {
+                displayOutput("Stack is empty");
+            } else {
+                displayOutput(`Stack elements: ${stack.join(', ')}`);
+            }
+        }
+
+        function displayOutput(message) {
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML += message + '<br>';
+            outputDiv.scrollTop = outputDiv.scrollHeight;
+        }
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queue Operations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .btn {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #218838;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            height: 150px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Queue Operations</h2>
+        <div>
+            <button class="btn" onclick="enqueue()">Enqueue</button>
+            <button class="btn" onclick="dequeue()">Dequeue</button>
+            <button class="btn" onclick="displayQueue()">Display</button>
+        </div>
+        <div class="output" id="output"></div>
+    </div>
+
+    <script>
+        const MAXSIZE = 5;
+        let queue = [];
+
+        function enqueue() {
+            if (queue.length >= MAXSIZE) {
+                displayOutput("Queue is full");
+            } else {
+                let val = prompt("Enter value to be enqueued:");
+                if (val !== null) {
+                    queue.push(parseInt(val));
+                    displayOutput(`Enqueued: ${val}`);
+                }
+            }
+        }
+
+        function dequeue() {
+            if (queue.length === 0) {
+                displayOutput("Queue is empty");
+            } else {
+                let val = queue.shift();
+                displayOutput(`Dequeued: ${val}`);
+            }
+        }
+
+        function displayQueue() {
+            if (queue.length === 0) {
+                displayOutput("Queue is empty");
+            } else {
+                displayOutput(`Queue elements: ${queue.join(', ')}`);
+            }
+        }
+
+        function displayOutput(message) {
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML += message + '<br>';
+            outputDiv.scrollTop = outputDiv.scrollHeight;
+        }
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Towers of Hanoi & Dijkstra's Algorithm</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .btn {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Towers of Hanoi</h2>
+        <div>
+            <label for="numDisks">Enter number of disks:</label>
+            <input type="number" id="numDisks" min="1" max="10">
+            <button class="btn" onclick="solveHanoi()">Solve</button>
+        </div>
+        <div class="output" id="hanoiOutput"></div>
+
+        <h2>Dijkstra's Algorithm</h2>
+        <div>
+            <label for="numVertices">Enter number of vertices:</label>
+            <input type="number" id="numVertices" min="2" max="10">
+            <button class="btn" onclick="runDijkstra()">Run</button>
+        </div>
+        <div class="output" id="dijkstraOutput"></div>
+    </div>
+
+    <script>
+        function solveHanoi() {
+            const numDisks = document.getElementById('numDisks').value;
+            if (numDisks < 1 || numDisks > 10) {
+                alert("Please enter a number between 1 and 10.");
+                return;
+            }
+
+            let result = [];
+            hanoi(numDisks, 'A', 'C', 'B', result);
+            document.getElementById('hanoiOutput').innerHTML = result.join('<br>');
+        }
+
+        function hanoi(n, from, to, aux, result) {
+            if (n === 1) {
+                result.push(`Move Disk 1 from ${from} to ${to}`);
+                return;
+            }
+            hanoi(n - 1, from, aux, to, result);
+            result.push(`Move Disk ${n} from ${from} to ${to}`);
+            hanoi(n - 1, aux, to, from, result);
+        }
+
+        function runDijkstra() {
+            const numVertices = document.getElementById('numVertices').value;
+            if (numVertices < 2 || numVertices > 10) {
+                alert("Please enter a number between 2 and 10.");
+                return;
+            }
+
+            let graph = [];
+            for (let i = 0; i < numVertices; i++) {
+                graph.push([]);
+                for (let j = 0; j < numVertices; j++) {
+                    let cost = prompt(`Enter cost from vertex ${i} to vertex ${j} (0 if no edge):`);
+                    graph[i][j] = cost === '0' ? Infinity : parseInt(cost);
+                }
+            }
+
+            let src = prompt("Enter the source vertex (0-based index):");
+            src = parseInt(src);
+            let result = dijkstra(graph, numVertices, src);
+            document.getElementById('dijkstraOutput').innerHTML = result;
+        }
+
+        function dijkstra(graph, v, src) {
+            let dist = Array(v).fill(Infinity);
+            let visited = Array(v).fill(false);
+            dist[src] = 0;
+
+            for (let count = 0; count < v - 1; count++) {
+                let u = -1;
+                for (let i = 0; i < v; i++) {
+                    if (!visited[i] && (u === -1 || dist[i] < dist[u])) {
+                        u = i;
+                    }
+                }
+
+                visited[u] = true;
+                for (let i = 0; i < v; i++) {
+                    if (!visited[i] && graph[u][i] !== Infinity && dist[u] + graph[u][i] < dist[i]) {
+                        dist[i] = dist[u] + graph[u][i];
+                    }
+                }
+            }
+
+            let output = "Vertex\tDistance from Source<br>";
+            for (let i = 0; i < v; i++) {
+                output += `${i}\t${dist[i]}<br>`;
+            }
+            return output;
+        }
+    </script>
+</body>
+</html>
