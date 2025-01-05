@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shelter Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        input, button {
+            margin: 5px;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Shelter Graph Section -->
+    <div class="section">
+        <div class="section-title">Shelter Graph</div>
+        <div>
+            <input type="number" id="shelterId" placeholder="Shelter ID">
+            <input type="text" id="shelterName" placeholder="Shelter Name">
+            <input type="number" id="latitude" placeholder="Latitude">
+            <input type="number" id="longitude" placeholder="Longitude">
+            <button onclick="addShelter()">Add Shelter</button>
+        </div>
+        <div>
+            <input type="number" id="fromId" placeholder="From Shelter ID">
+            <input type="number" id="toId" placeholder="To Shelter ID">
+            <input type="number" id="distance" placeholder="Distance">
+            <button onclick="addEdge()">Add Connection</button>
+        </div>
+        <button onclick="displayGraph()">Display Graph</button>
+        <div class="output" id="graphOutput"></div>
+    </div>
+
+    <!-- Shelter Queue Section -->
+    <div class="section">
+        <div class="section-title">Shelter Queue</div>
+        <div>
+            <input type="text" id="individualName" placeholder="Individual Name">
+            <input type="number" id="priority" placeholder="Priority">
+            <button onclick="addIndividual()">Add Individual</button>
+        </div>
+        <button onclick="displayQueue()">Display Queue</button>
+        <button onclick="serveIndividual()">Serve Individual</button>
+        <div class="output" id="queueOutput"></div>
+    </div>
+
+    <script>
+        // Graph functionality
+        let shelters = [];
+        let edges = [];
+
+        function addShelter() {
+            const id = document.getElementById('shelterId').value;
+            const name = document.getElementById('shelterName').value;
+            const latitude = document.getElementById('latitude').value;
+            const longitude = document.getElementById('longitude').value;
+            shelters.push({ id, name, latitude, longitude });
+            alert('Shelter added successfully!');
+        }
+
+        function addEdge() {
+            const from = document.getElementById('fromId').value;
+            const to = document.getElementById('toId').value;
+            const distance = document.getElementById('distance').value;
+            edges.push({ from, to, distance });
+            alert('Connection added successfully!');
+        }
+
+        function displayGraph() {
+            let output = '<strong>Shelters:</strong><br>';
+            shelters.forEach(shelter => {
+                output += `ID: ${shelter.id}, Name: ${shelter.name}, Location: (${shelter.latitude}, ${shelter.longitude})<br>`;
+            });
+
+            output += '<br><strong>Connections:</strong><br>';
+            edges.forEach(edge => {
+                output += `From Shelter ${edge.from} to Shelter ${edge.to}, Distance: ${edge.distance} km<br>`;
+            });
+
+            document.getElementById('graphOutput').innerHTML = output;
+        }
+
+        // Queue functionality
+        let queue = [];
+
+        function addIndividual() {
+            const name = document.getElementById('individualName').value;
+            const priority = parseInt(document.getElementById('priority').value, 10);
+            queue.push({ name, priority });
+            queue.sort((a, b) => b.priority - a.priority); // Sort by priority (highest first)
+            alert('Individual added to the queue!');
+        }
+
+        function displayQueue() {
+            if (queue.length === 0) {
+                document.getElementById('queueOutput').innerHTML = 'Queue is empty.';
+                return;
+            }
+
+            let output = '<strong>Current Queue (Priority Order):</strong><br>';
+            queue.forEach(individual => {
+                output += `${individual.name} (Priority: ${individual.priority})<br>`;
+            });
+            document.getElementById('queueOutput').innerHTML = output;
+        }
+
+        function serveIndividual() {
+            if (queue.length === 0) {
+                alert('Queue is empty. No one to serve.');
+                document.getElementById('queueOutput').innerHTML = 'Queue is empty.';
+                return;
+            }
+
+            const served = queue.shift();
+            alert(`Serving: ${served.name} (Priority: ${served.priority})`);
+            displayQueue();
+        }
+    </script>
+
+</body>
+</html>
