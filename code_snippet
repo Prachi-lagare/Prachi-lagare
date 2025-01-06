@@ -1,139 +1,191 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shelter Management</title>
+    <title>C++ Code Snippets</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            line-height: 1.6;
         }
-        .section {
-            margin-bottom: 30px;
+        .code-snippet {
+            background-color: #f4f4f4;
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #333;
+            overflow-x: auto;
         }
-        .section-title {
-            font-size: 20px;
-            margin-bottom: 10px;
+        pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
         }
-        input, button {
-            margin: 5px;
-        }
-        .output {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            background-color: #f9f9f9;
+        h2 {
+            color: #333;
         }
     </style>
 </head>
 <body>
+    <h1>C++ Code Snippets</h1>
 
-    <!-- Shelter Graph Section -->
-    <div class="section">
-        <div class="section-title">Shelter Graph</div>
-        <div>
-            <input type="number" id="shelterId" placeholder="Shelter ID">
-            <input type="text" id="shelterName" placeholder="Shelter Name">
-            <input type="number" id="latitude" placeholder="Latitude">
-            <input type="number" id="longitude" placeholder="Longitude">
-            <button onclick="addShelter()">Add Shelter</button>
-        </div>
-        <div>
-            <input type="number" id="fromId" placeholder="From Shelter ID">
-            <input type="number" id="toId" placeholder="To Shelter ID">
-            <input type="number" id="distance" placeholder="Distance">
-            <button onclick="addEdge()">Add Connection</button>
-        </div>
-        <button onclick="displayGraph()">Display Graph</button>
-        <div class="output" id="graphOutput"></div>
+    <h2>Code 1: Shelter Graph</h2>
+    <div class="code-snippet">
+        <pre><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+using namespace std;
+
+struct Shelter {
+    int id;
+    string name;
+    double latitude;
+    double longitude;
+};
+
+struct Edge {
+    int from;
+    int to;
+    double distance; 
+};
+
+class Graph {
+    vector&lt;Shelter&gt; shelters;
+    vector&lt;Edge&gt; edges;
+
+public:
+    void addShelter(int id, const string&amp; name, double lat, double lon) {
+        shelters.push_back({id, name, lat, lon});
+    }
+
+    void addEdge(int from, int to, double distance) {
+        edges.push_back({from, to, distance});
+    }
+
+    void displayGraph() {
+        cout &lt;&lt; "Shelters:" &lt;&lt; endl;
+        for (const auto&amp; shelter : shelters) {
+            cout &lt;&lt; "ID: " &lt;&lt; shelter.id &lt;&lt; ", Name: " &lt;&lt; shelter.name
+                 &lt;&lt; ", Location: (" &lt;&lt; shelter.latitude &lt;&lt; ", " &lt;&lt; shelter.longitude &lt;&lt; ")" &lt;&lt; endl;
+        }
+
+        cout &lt;&lt; "\nConnections:" &lt;&lt; endl;
+        for (const auto&amp; edge : edges) {
+            cout &lt;&lt; "From Shelter " &lt;&lt; edge.from &lt;&lt; " to Shelter " &lt;&lt; edge.to
+                 &lt;&lt; ", Distance: " &lt;&lt; edge.distance &lt;&lt; " km" &lt;&lt; endl;
+        }
+    }
+};
+
+int main() {
+    Graph g;
+    int nShelters, nEdges;
+
+    cout &lt;&lt; "Enter the number of shelters: ";
+    cin &gt;&gt; nShelters;
+
+    for (int i = 0; i &lt; nShelters; ++i) {
+        int id;
+        string name;
+        double lat, lon;
+        cout &lt;&lt; "Enter shelter ID, name, latitude, and longitude: ";
+        cin &gt;&gt; id &gt;&gt; ws;
+        getline(cin, name);
+        cin &gt;&gt; lat &gt;&gt; lon;
+        g.addShelter(id, name, lat, lon);
+    }
+
+    cout &lt;&lt; "Enter the number of connections: ";
+    cin &gt;&gt; nEdges;
+
+    for (int i = 0; i &lt; nEdges; ++i) {
+        int from, to;
+        double distance;
+        cout &lt;&lt; "Enter connection (from shelter ID, to shelter ID, distance): ";
+        cin &gt;&gt; from &gt;&gt; to &gt;&gt; distance;
+        g.addEdge(from, to, distance);
+    }
+
+    g.displayGraph();
+
+    return 0;
+        </code></pre>
     </div>
 
-    <!-- Shelter Queue Section -->
-    <div class="section">
-        <div class="section-title">Shelter Queue</div>
-        <div>
-            <input type="text" id="individualName" placeholder="Individual Name">
-            <input type="number" id="priority" placeholder="Priority">
-            <button onclick="addIndividual()">Add Individual</button>
-        </div>
-        <button onclick="displayQueue()">Display Queue</button>
-        <button onclick="serveIndividual()">Serve Individual</button>
-        <div class="output" id="queueOutput"></div>
+    <h2>Code 2: Shelter Queue</h2>
+    <div class="code-snippet">
+        <pre><code>#include &lt;iostream&gt;
+#include &lt;queue&gt;
+#include &lt;string&gt;
+using namespace std;
+
+struct Individual {
+    string name;
+    int priority; 
+};
+
+class ShelterQueue {
+    priority_queue&lt;pair&lt;int, string&gt;&gt; pq;
+
+public:
+    void addIndividual(const string&amp; name, int priority) {
+        pq.push({priority, name});
+    }
+
+    void serveIndividual() {
+        if (pq.empty()) {
+            cout &lt;&lt; "Queue is empty. No one to serve." &lt;&lt; endl;
+            return;
+        }
+        cout &lt;&lt; "Serving: " &lt;&lt; pq.top().second &lt;&lt; " (Priority: " &lt;&lt; pq.top().first &lt;&lt; ")" &lt;&lt; endl;
+        pq.pop();
+    }
+
+    void displayQueue() {
+        if (pq.empty()) {
+            cout &lt;&lt; "Queue is empty." &lt;&lt; endl;
+            return;
+        }
+        cout &lt;&lt; "Current Queue (Priority Order):" &lt;&lt; endl;
+        auto tempQueue = pq;
+        while (!tempQueue.empty()) {
+            cout &lt;&lt; tempQueue.top().second &lt;&lt; " (Priority: " &lt;&lt; tempQueue.top().first &lt;&lt; ")" &lt;&lt; endl;
+            tempQueue.pop();
+        }
+    }
+};
+
+int main() {
+    ShelterQueue queue;
+    int n;
+
+    cout &lt;&lt; "Enter the number of individuals to add: ";
+    cin &gt;&gt; n;
+
+    for (int i = 0; i &lt; n; ++i) {
+        string name;
+        int priority;
+        cout &lt;&lt; "Enter name and priority: ";
+        cin &gt;&gt; ws;
+        getline(cin, name);
+        cin &gt;&gt; priority;
+        queue.addIndividual(name, priority);
+    }
+
+    queue.displayQueue();
+
+    char choice;
+    do {
+        cout &lt;&lt; "\nServe the next individual? (y/n): ";
+        cin &gt;&gt; choice;
+        if (choice == 'y' || choice == 'Y') {
+            queue.serveIndividual();
+            queue.displayQueue();
+        }
+    } while (choice == 'y' || choice == 'Y');
+
+    return 0;
+        </code></pre>
     </div>
-
-    <script>
-        // Graph functionality
-        let shelters = [];
-        let edges = [];
-
-        function addShelter() {
-            const id = document.getElementById('shelterId').value;
-            const name = document.getElementById('shelterName').value;
-            const latitude = document.getElementById('latitude').value;
-            const longitude = document.getElementById('longitude').value;
-            shelters.push({ id, name, latitude, longitude });
-            alert('Shelter added successfully!');
-        }
-
-        function addEdge() {
-            const from = document.getElementById('fromId').value;
-            const to = document.getElementById('toId').value;
-            const distance = document.getElementById('distance').value;
-            edges.push({ from, to, distance });
-            alert('Connection added successfully!');
-        }
-
-        function displayGraph() {
-            let output = '<strong>Shelters:</strong><br>';
-            shelters.forEach(shelter => {
-                output += `ID: ${shelter.id}, Name: ${shelter.name}, Location: (${shelter.latitude}, ${shelter.longitude})<br>`;
-            });
-
-            output += '<br><strong>Connections:</strong><br>';
-            edges.forEach(edge => {
-                output += `From Shelter ${edge.from} to Shelter ${edge.to}, Distance: ${edge.distance} km<br>`;
-            });
-
-            document.getElementById('graphOutput').innerHTML = output;
-        }
-
-        // Queue functionality
-        let queue = [];
-
-        function addIndividual() {
-            const name = document.getElementById('individualName').value;
-            const priority = parseInt(document.getElementById('priority').value, 10);
-            queue.push({ name, priority });
-            queue.sort((a, b) => b.priority - a.priority); // Sort by priority (highest first)
-            alert('Individual added to the queue!');
-        }
-
-        function displayQueue() {
-            if (queue.length === 0) {
-                document.getElementById('queueOutput').innerHTML = 'Queue is empty.';
-                return;
-            }
-
-            let output = '<strong>Current Queue (Priority Order):</strong><br>';
-            queue.forEach(individual => {
-                output += `${individual.name} (Priority: ${individual.priority})<br>`;
-            });
-            document.getElementById('queueOutput').innerHTML = output;
-        }
-
-        function serveIndividual() {
-            if (queue.length === 0) {
-                alert('Queue is empty. No one to serve.');
-                document.getElementById('queueOutput').innerHTML = 'Queue is empty.';
-                return;
-            }
-
-            const served = queue.shift();
-            alert(`Serving: ${served.name} (Priority: ${served.priority})`);
-            displayQueue();
-        }
-    </script>
-
 </body>
 </html>
